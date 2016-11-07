@@ -1,12 +1,18 @@
-
+//Variables.
+int LED = 13;
+int PIR = 2;
+int currentSensorState = LOW;  
+int sensorVal = 0;  
 
 void setup() {
   //Initialise pin for LED.
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED, OUTPUT);
 
+  //Initialise pin for PIR.
+  pinMode(PIR, INPUT);  
+  
   //Sets up serial to input data to.
   Serial.begin(9600);
-  Serial.println("Input 1 to turn LED on or 0 to turn LED off");
 }
 
 void loop() {
@@ -14,27 +20,36 @@ void loop() {
     checkMotionDetected();
   }
   
-
 void checkMotionDetected()
 {
-  //If serial input is detected.
-  if(Serial.available())
-  {
-    //Read in character.
-    int input = Serial.read(); 
+  sensorVal = digitalRead(PIR);
 
-    //Set LED on/off based on read in value.
-    if(input == '1')
-    {
-      Serial.println("LED On");
-      digitalWrite(LED_BUILTIN, HIGH);
-    }
-    else if (input == '0')
-    {
-      Serial.println("LED Off");
-      digitalWrite(LED_BUILTIN, LOW);
+  //If PIR sensor is high.
+  if (sensorVal == HIGH) {    
+    //Turn LED on.
+    digitalWrite(LED, HIGH);   
+
+    //If the current recorded sensor state is low, new motion has been detected.
+    if (currentSensorState == LOW) {
+     //Print to log.
+     Serial.println("Motion detected!"); 
+     
+     //Update the currentSensorState to high (motion has been detected).
+     currentSensorState = HIGH;      
     }
   }
-  
+  //If PIR sensor is NOT high.
+  else {
+      //Turn LED off.
+      digitalWrite(LED, LOW);
+
+      //If the current recorded sensor state is high, the detected motion has stopped.
+      if (currentSensorState == HIGH){
+        //Print to log.
+        Serial.println("Motion stopped!");
+        //Update teh currentSensorState to low (motion is no longer detected).
+        currentSensorState = LOW;   
+    }
+  }
 }
 
