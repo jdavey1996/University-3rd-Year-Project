@@ -1,6 +1,7 @@
 import web
 import RPi.GPIO as GPIO
 import time
+import json
 
 urls = (
     '/', 'index'
@@ -27,13 +28,15 @@ def MOTION(PIR_PIN):
 time.sleep(4)
 
 class index:
-        def GET(self):
-                user_data = web.input()
-                if user_data.userin == 'on':
+        def POST(self):
+                data = json.loads(web.data())
+                command = data["command"]
+                #!!!Check if already running.
+                if command == 'on':
                         print "turned on"
                         GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback = MOTION)
                         return "ON!"
-                elif user_data.userin == 'off':
+                elif command == 'off':
                         print "turned off"
                         GPIO.remove_event_detect(PIR_PIN)
                         GPIO.output(LED_PIN,GPIO.LOW)
