@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_controls_fragment"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Controls" />
+    </group>
+</menu>
