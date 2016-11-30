@@ -13,16 +13,17 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 LED_PIN = 12
 PIR_PIN = 16
+running = 0
 #Set up LED on pin 12.
 GPIO.setup(LED_PIN,GPIO.OUT)
 #Set up PIR sensor on pin 16.
 GPIO.setup(PIR_PIN,GPIO.IN)
 
-FCM_API_KEY="AAAA6cjZLe0:APA91bGBk5a5tTVzEjwFAOrJBOx5r1lI-qomtwgaGRNliHK81ChMrMnpVxgayJvgqORQnTfodzOyBZogopvikspAXUJIYDG7z1qMnyn8ZSUxvtnfPWut5H21dcFFM8Tr_N4QMx_faAs6UwXZPdh0o-KPuFtnwY2sZQ"
+FCM_API_KEY="____________________"
 
 def NOTIFICATION(FCM_API_KEY):
     	data={
-        	"to" : "cbHBFwi4rHY:APA91bGNGnbPTYLcf1f6Q8Qkdo-1goC4I3pvemmoOiE_olXMIKBXLvRVi_CgBbEIbspsd77aQCs7fLL5o9ftrTVwMgOfLWxvQPpFpAbjNjUJ9_fdh2oUQjc3FkRoHdqwddy5KCbIjj-u",
+        	"to" : "_____device id____",
         	"data" : {
             	"notification" : "motion detected"
             	}
@@ -46,15 +47,26 @@ class index:
         def POST(self):
                 data = json.loads(web.data())
                 command = data["command"]
+                global running
 
                 if command == 'on':
-                        GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback = MOTION)
-                        return "ON!"
+                	if running == 0:
+                        	time.sleep(5)
+                                GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback = MOTION)
+                            	running = 1
+                            	return "001"
+               		elif running == 1:
+                            	return "003"
                 elif command == 'off':
-                        GPIO.remove_event_detect(PIR_PIN)
-                        GPIO.output(LED_PIN,GPIO.LOW)
-                        return "OFF!"
+                        if running == 1:
+                            	GPIO.remove_event_detect(PIR_PIN)
+                            	GPIO.output(LED_PIN,GPIO.LOW)
+                            	running = 0
+                            	return "000"
+                        elif running == 0:
+                            	return "002"
 
 if __name__ == "__main__":
         app = web.application(urls, globals())
         app.run()
+
