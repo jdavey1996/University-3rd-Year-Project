@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-public class on_offAsync extends AsyncTask<Object, String, Boolean> {
+public class on_offAsync extends AsyncTask<Object, String, String> {
     Context context;
     public on_offAsync(Context context)
     {
@@ -22,7 +22,7 @@ public class on_offAsync extends AsyncTask<Object, String, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Object... params) {
+    protected String doInBackground(Object... params) {
         Integer filter = (Integer) params[0];
         String ip = (String) params[1];
         String port = (String) params[2];
@@ -37,19 +37,15 @@ public class on_offAsync extends AsyncTask<Object, String, Boolean> {
                 }
 
                 URL url = new URL("http://"+ip+":"+port);
-                Log.i("aaaa",url.toString());
 
                 HttpConnection connection = new HttpConnection();
 
-                Log.i("result",connection.postData(url,data));
-
-                //!!!Check if result is good before returning true.
-
-                return true;
+                String result = connection.postData(url,data);
+                return result.trim();
             }catch (Exception e)
             {
                 e.printStackTrace();
-                return false;
+                return null;
             }
     }
 
@@ -59,15 +55,34 @@ public class on_offAsync extends AsyncTask<Object, String, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
-        //If result is false, error occurred.
-        if(!result)
+    protected void onPostExecute(String result) {
+        //If result is null, error occurred.
+        /*Else response codes:
+            000 = turned off
+            001 = turned on
+            002 = already off
+            003 = already on*/
+        if(result==null)
         {
             Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
         }
-        else
-        {
-            Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+        else {
+            switch (result) {
+                case "000":
+                    Toast.makeText(context, "Turned off!", Toast.LENGTH_SHORT).show();
+                    break;
+                case "001":
+                    Toast.makeText(context, "Turned on!", Toast.LENGTH_SHORT).show();
+                    break;
+                case "002":
+                    Toast.makeText(context, "Already off!", Toast.LENGTH_SHORT).show();
+                    break;
+                case "003":
+                    Toast.makeText(context, "Already on!", Toast.LENGTH_SHORT).show();
+                    break;
+
+
+            }
         }
     }
 }

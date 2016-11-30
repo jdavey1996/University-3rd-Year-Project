@@ -1,5 +1,7 @@
 package com.josh_davey.university_3rd_year_project;
 
+import android.app.NotificationManager;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -28,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Log.i("CHECK-TOKEN", FirebaseInstanceId.getInstance().getToken());
+
+        if(getIntent().hasExtra("remove_notification")) {
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.cancel(0);
+
+            SharedPreferences sharedPreferences = getSharedPreferences("motion_detection_app",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("notification_counter").apply();
+        }
 
         //Setting custom toolbar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
