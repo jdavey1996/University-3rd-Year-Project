@@ -21,19 +21,12 @@ public class ControlsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final EditText ipInput = (EditText)view.findViewById(R.id.ipInput);
-        final EditText portInput = (EditText)view.findViewById(R.id.portInput);
-
-
         Button on = (Button)view.findViewById(R.id.onBtn);
         on.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ip = ipInput.getText().toString();
-                String port = portInput.getText().toString();
-
                 On_OffAsync turnOn = new On_OffAsync(getContext());
-                turnOn.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,1,ip,port);
+                turnOn.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,1);
             }
         });
 
@@ -41,10 +34,8 @@ public class ControlsFragment extends Fragment {
         off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ip = ipInput.getText().toString();
-                String port = portInput.getText().toString();
                 On_OffAsync turnOff = new On_OffAsync(getContext());
-                turnOff.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,0,ip,port);
+                turnOff.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,0);
             }
         });
 

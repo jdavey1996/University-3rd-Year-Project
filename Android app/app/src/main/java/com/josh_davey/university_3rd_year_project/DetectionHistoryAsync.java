@@ -21,8 +21,10 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String ip = "192.168.0.27";
-        String port = "8080";
+        SharedPrefs sharedPrefs = new SharedPrefs(context);
+        SharedPrefs.SharedprefObj device = sharedPrefs.getPrefs();
+        String ip = device.ip;
+        String port = device.port;
 
         try{
             URL url = new URL("http://"+ip+":"+port+"/history");
@@ -34,7 +36,7 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,String> {
 
         }catch (Exception e)
         {
-
+            e.printStackTrace();
         }
 
         return null;
@@ -48,6 +50,7 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,String> {
         }
         else
         {
+            Toast.makeText(context, "Detection history updated", Toast.LENGTH_SHORT).show();
             Log.i("testdat",data.toString());
         }
 

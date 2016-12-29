@@ -24,8 +24,11 @@ public class On_OffAsync extends AsyncTask<Object, String, String> {
     @Override
     protected String doInBackground(Object... params) {
         Integer filter = (Integer) params[0];
-        String ip = (String) params[1];
-        String port = (String) params[2];
+
+        SharedPrefs sharedPrefs = new SharedPrefs(context);
+        SharedPrefs.SharedprefObj device = sharedPrefs.getPrefs();
+        String ip = device.ip;
+        String port = device.port;
 
             JSONObject data = new JSONObject();
             try {
