@@ -51,4 +51,29 @@ public class HttpConnection {
         }
     }
 
+    public String getData(URL url)
+    {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.connect();
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line + "\n");
+            }
+            bufferedReader.close();
+
+            String result = stringBuilder.toString();
+            return result;
+        }catch (Exception e)
+        {
+            return null;
+        }
+    }
 }

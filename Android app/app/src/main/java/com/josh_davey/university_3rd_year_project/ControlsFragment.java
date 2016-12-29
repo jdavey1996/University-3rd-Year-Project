@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class ControlsFragment extends Fragment {
 
@@ -33,7 +32,7 @@ public class ControlsFragment extends Fragment {
                 String ip = ipInput.getText().toString();
                 String port = portInput.getText().toString();
 
-                on_offAsync turnOn = new on_offAsync(getContext());
+                On_OffAsync turnOn = new On_OffAsync(getContext());
                 turnOn.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,1,ip,port);
             }
         });
@@ -44,7 +43,7 @@ public class ControlsFragment extends Fragment {
             public void onClick(View v) {
                 String ip = ipInput.getText().toString();
                 String port = portInput.getText().toString();
-                on_offAsync turnOff = new on_offAsync(getContext());
+                On_OffAsync turnOff = new On_OffAsync(getContext());
                 turnOff.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,0,ip,port);
             }
         });

@@ -92,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_controls_fragment:
                 loadFragment.replace(R.id.fragment_container, new ControlsFragment());
                 break;
+            case R.id.nav_detection_history_fragment:
+                loadFragment.replace(R.id.fragment_container, new DetectionHistoryFragment());
+                break;
         }
         loadFragment.commit();
         menuItem.setChecked(true);

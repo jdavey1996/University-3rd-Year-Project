@@ -9,9 +9,9 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-public class on_offAsync extends AsyncTask<Object, String, String> {
+public class On_OffAsync extends AsyncTask<Object, String, String> {
     Context context;
-    public on_offAsync(Context context)
+    public On_OffAsync(Context context)
     {
         this.context = context;
     }
@@ -26,8 +26,7 @@ public class on_offAsync extends AsyncTask<Object, String, String> {
         Integer filter = (Integer) params[0];
         String ip = (String) params[1];
         String port = (String) params[2];
-        Log.i("aaaa",ip);
-        Log.i("aaaa",port);
+
             JSONObject data = new JSONObject();
             try {
                 if (filter == 0) {
@@ -36,7 +35,7 @@ public class on_offAsync extends AsyncTask<Object, String, String> {
                     data.put("command", "on");
                 }
 
-                URL url = new URL("http://"+ip+":"+port);
+                URL url = new URL("http://"+ip+":"+port+"/control");
 
                 HttpConnection connection = new HttpConnection();
 

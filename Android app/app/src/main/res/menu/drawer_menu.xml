@@ -4,5 +4,9 @@
             android:id="@+id/nav_controls_fragment"
             android:icon="@drawable/ic_power_settings_new_black_24dp"
             android:title="Controls" />
+        <item
+            android:id="@+id/nav_detection_history_fragment"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Detection history" />
     </group>
 </menu>
