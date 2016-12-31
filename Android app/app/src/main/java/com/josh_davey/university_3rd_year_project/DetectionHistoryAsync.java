@@ -3,6 +3,7 @@ package com.josh_davey.university_3rd_year_project;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,10 +18,12 @@ import java.util.ArrayList;
 public class DetectionHistoryAsync extends AsyncTask<String,String,JSONArray> {
     Context context;
     Activity activity;
-    public DetectionHistoryAsync(Context context, Activity activity)
+    SwipeRefreshLayout sw;
+    public DetectionHistoryAsync(Context context, Activity activity, SwipeRefreshLayout sw)
     {
         this.context = context;
         this.activity = activity;
+        this.sw = sw;
     }
     @Override
     protected void onPreExecute() {
@@ -54,6 +57,10 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,JSONArray> {
 
     @Override
     protected void onPostExecute(JSONArray data) {
+        if (sw!=null) {
+            sw.setRefreshing(false);
+        }
+
         if(data == null)
         {
             Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
