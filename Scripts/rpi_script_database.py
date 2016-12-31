@@ -26,7 +26,7 @@ class Database:
     def getDataDb():
         db_con = sqlite3.connect('3rdyearproject.db')
         db_cur = db_con.cursor()
-        db_cur.execute('SELECT * FROM tbl_detections ORDER BY detection_num')
+        db_cur.execute('SELECT * FROM tbl_detections ORDER BY detection_num DESC')
 
         detectionsList = []
         for row in db_cur:

@@ -18,7 +18,7 @@ public class DetectionHistoryFragment extends Fragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        DetectionHistoryAsync detectionHistoryAsync = new DetectionHistoryAsync(getContext());
+        DetectionHistoryAsync detectionHistoryAsync = new DetectionHistoryAsync(getContext(),getActivity());
         detectionHistoryAsync.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

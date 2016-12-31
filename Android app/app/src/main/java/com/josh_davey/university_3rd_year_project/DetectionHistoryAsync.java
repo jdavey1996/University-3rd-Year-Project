@@ -1,18 +1,26 @@
 package com.josh_davey.university_3rd_year_project;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.net.URL;
+import java.util.ArrayList;
 
 
-public class DetectionHistoryAsync extends AsyncTask<String,String,String> {
+public class DetectionHistoryAsync extends AsyncTask<String,String,JSONArray> {
     Context context;
-    public DetectionHistoryAsync(Context context)
+    Activity activity;
+    public DetectionHistoryAsync(Context context, Activity activity)
     {
         this.context = context;
+        this.activity = activity;
     }
     @Override
     protected void onPreExecute() {
@@ -20,7 +28,7 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected JSONArray doInBackground(String... params) {
         SharedPrefs sharedPrefs = new SharedPrefs(context);
         SharedPrefs.SharedprefObj device = sharedPrefs.getPrefs();
         String ip = device.ip;
@@ -31,8 +39,10 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,String> {
 
             HttpConnection connection = new HttpConnection();
 
-            String result = connection.getData(url);
-            return result.trim();
+            JSONArray result = new JSONArray(connection.getData(url));
+
+
+            return result;
 
         }catch (Exception e)
         {
@@ -43,7 +53,7 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,String> {
     }
 
     @Override
-    protected void onPostExecute(String data) {
+    protected void onPostExecute(JSONArray data) {
         if(data == null)
         {
             Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
@@ -52,6 +62,22 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,String> {
         {
             Toast.makeText(context, "Detection history updated", Toast.LENGTH_SHORT).show();
             Log.i("testdat",data.toString());
+
+            ArrayList<Detection> detectionList = new ArrayList<Detection>();
+            for (int i=0; i<data.length();i++)
+            {
+                try {
+                    JSONObject temp = data.getJSONObject(i);
+                    detectionList.add(new Detection(temp.getString("id"),temp.getString("date"),temp.getString("time")));
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            DetectionHistoryAdapter adapter = new DetectionHistoryAdapter(activity,detectionList);
+            ListView detectionsListView = (ListView)activity.findViewById(R.id.detectionsLV);
+            detectionsListView.setAdapter(adapter);
         }
 
     }

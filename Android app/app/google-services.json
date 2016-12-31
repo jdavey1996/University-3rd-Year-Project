@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "460280809113",
+    "firebase_url": "https://rd-year-university-proje-d7667.firebaseio.com",
+    "project_id": "rd-year-university-proje-d7667",
+    "storage_bucket": "rd-year-university-proje-d7667.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460280809113:android:5c1e8d356a2c04ec",
+        "android_client_info": {
+          "package_name": "com.josh_davey.university_3rd_year_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460280809113-4dqttc7matse9iph28ki2aua9uvk5hrq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.josh_davey.university_3rd_year_project",
+            "certificate_hash": "A09D84B2EE008BB22B74DC6FA38F6CAEAD44585B"
+          }
+        },
+        {
+          "client_id": "460280809113-aho0b1ib94bk6n43kd8s263lc9vclcvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVWJVWWbAXGj-bj-_b-NlY7gjyV1y85go"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460280809113-aho0b1ib94bk6n43kd8s263lc9vclcvn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
