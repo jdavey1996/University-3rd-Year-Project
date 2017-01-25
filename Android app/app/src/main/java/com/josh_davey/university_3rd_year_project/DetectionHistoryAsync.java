@@ -75,7 +75,7 @@ public class DetectionHistoryAsync extends AsyncTask<String,String,JSONArray> {
             {
                 try {
                     JSONObject temp = data.getJSONObject(i);
-                    detectionList.add(new Detection(temp.getString("id"),temp.getString("date"),temp.getString("time")));
+                    detectionList.add(new Detection(temp.getString("id"),temp.getString("date"),temp.getString("time"),temp.getString("img")));
                 }catch (Exception e)
                 {
                     e.printStackTrace();

@@ -8,12 +8,14 @@ public class Detection {
     String detectionNum;
     String date;
     String time;
+    String img;
 
-    public Detection(String detectionNum,String date,String time)
+    public Detection(String detectionNum,String date,String time, String img)
     {
         this.detectionNum=detectionNum;
         this.date=date;
         this.time=time;
+        this.img=img;
     }
 
     public String getDate() {
@@ -27,4 +29,6 @@ public class Detection {
     public String getTime() {
         return time;
     }
+
+    public String getImg() { return img; }
 }
